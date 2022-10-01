@@ -1,12 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { StyleSheet, View, Text } from 'react-native';
 import LoginPage from './pages/login';
 import Dashboard from './pages/dashboard';
+import MedicinesPage from './pages/medicines';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
+const Stack = createNativeStackNavigator();
+
 export default function App() {
-  return (
-    <View style={styles.container}>
-        <Dashboard/>
-    </View>
+  return (   
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
+          <Stack.Screen name="Dashboard" component={Dashboard} options={{ headerShown: true }} />
+          <Stack.Screen name="Medicines" component={MedicinesPage} options={{ headerShown: true }} />
+        </Stack.Navigator>
+      </NavigationContainer>   
   );
 }
 
