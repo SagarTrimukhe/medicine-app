@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { useState } from 'react'
 
-const LoginPage = () => {
+const LoginPage = ({navigation}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const onLoginPress = () => {
-        
+        navigation.navigate('Dashboard')
     }
     return (
         <View style={styles.loginPageContainer}>
@@ -50,8 +50,8 @@ export default LoginPage
 const styles = StyleSheet.create({
     loginPageContainer: {
         flex: 1,
-        alignContent: 'stretch',
-        justifyContent: "flex-start"
+        alignItems: 'center',
+        justifyContent: 'flex-start',
     },
     appTitle: {
         fontWeight: 'bold',
