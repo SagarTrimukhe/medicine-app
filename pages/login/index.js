@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { useState } from 'react'
+import { commonStyles } from '../../styles/styles';
 
 const LoginPage = ({navigation}) => {
     const [username, setUsername] = useState('');
@@ -15,9 +16,9 @@ const LoginPage = ({navigation}) => {
             <Text style={styles.loginHeading}>Login</Text>
 
             <View>
-                <Text style={styles.inputLabel}>Username</Text>
+                <Text style={commonStyles.inputLabel}>Username</Text>
                 <TextInput
-                    style={styles.input}
+                    style={commonStyles.input}
                     value={username}
                     onChangeText={setUsername}
                     placeholder="Enter Username"
@@ -27,7 +28,7 @@ const LoginPage = ({navigation}) => {
             <View>
                 <Text style={styles.inputLabel}>Password</Text>
                 <TextInput
-                    style={styles.input}
+                    style={commonStyles.input}
                     value={password}
                     onChangeText={setPassword}
                     placeholder='Enter Password'
@@ -62,16 +63,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
         marginVertical: 10
-    },
-    inputLabel: {
-        fontSize: 15
-    },
-    input: {
-        height: 40,
-        width: 200,
-        marginBottom: 10,
-        borderWidth: 1,
-        padding: 10,
-    },
-
+    }
 })

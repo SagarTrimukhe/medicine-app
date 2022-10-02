@@ -1,12 +1,18 @@
-import { StyleSheet, Text, View, FlatList, TextInput, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TextInput, Image, Button } from 'react-native';
 import { useState } from 'react';
+import QuantityInput from '../../components/QuantityInput';
+
 const MedicinesPage = () => {
     const [searchText, setSearchText] = useState('')
+    const [showQuantityModal, setShowQuantityModal] = useState(false)
+    const [selectedMedicineDetails, setSelectedMedicineDetails] = useState({})
     const medicinesData = [
         { id: "123", name: "Dolo", description: "test desc", price: 10 },
         { id: "34", name: "Crocin", description: "test desc", price: 20 },
         { id: "43", name: "Xenon", description: "test desc", price: 30 }
     ]
+
+
     return (
         <View style={styles.medicinePageContainer}>
             {/* <View style={styles.pageTitleContainer}>
@@ -14,7 +20,7 @@ const MedicinesPage = () => {
             </View> */}
 
             <View style={styles.searchBox}>
-                <Image style={styles.tinyIcon} source={require('../../assets/search.png')}/>
+                <Image style={styles.tinyIcon} source={require('../../assets/search.png')} />
                 <TextInput
                     style={styles.input}
                     value={searchText}
@@ -26,19 +32,43 @@ const MedicinesPage = () => {
             <View style={styles.medicinesListContainer}>
                 <FlatList
                     data={medicinesData}
-                    renderItem={medicineItem}
+                    renderItem={({item}) => medicineItem(
+                        {
+                            item: item,
+                            setSelectedMedicineDetails,
+                            openQuantityModal: () => { setShowQuantityModal(true) }
+                        })}
                     keyExtractor={item => item.id}
                 />
             </View>
+
+            <QuantityInput 
+                medicineName={selectedMedicineDetails.name}
+                price ={selectedMedicineDetails.price}
+                showQuantityModal={showQuantityModal}
+                setShowQuantityModal={setShowQuantityModal}
+            />
+
         </View>
     )
 }
 
-const medicineItem = ({item}) => {
+const medicineItem = ({ item, setSelectedMedicineDetails, openQuantityModal }) => {
+
     return (
         <View style={styles.medicineItem}>
-            <Text style={styles.title}>{item.name}</Text>
-            <Text style={styles.description}>{item.description}</Text>
+            <View>
+                <Text style={styles.title}>{item.name}</Text>
+                <Text style={styles.description}>{item.description}</Text>
+            </View>
+
+            <View>
+                <Text>{`$${item.price}`}</Text>
+                <Button title='Add to cart' onPress={() => {
+                    setSelectedMedicineDetails(item)
+                    openQuantityModal()
+                }} />
+            </View>
         </View>
     )
 }
@@ -62,17 +92,17 @@ const styles = StyleSheet.create({
         fontSize: 30,
         marginTop: 15,
     },
-    tinyIcon:{
-        height:20,
-        width:20,
+    tinyIcon: {
+        height: 20,
+        width: 20,
     },
-    searchBox:{
+    searchBox: {
         borderWidth: 1,
-        flexDirection:"row",
-        alignItems:'center',
-        justifyContent:'center',
-        padding:5,
-        marginVertical:10
+        flexDirection: "row",
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 5,
+        marginVertical: 10
     },
     input: {
         height: 20,
@@ -86,14 +116,14 @@ const styles = StyleSheet.create({
     medicineItem: {
         height: 100,
         width: 300,
-        backgroundColor: 'white',
         borderColor: "grey",
         borderWidth: 2,
         borderRadius: 10,
-        alignItems:'flex-start',
-        padding: 10,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
         justifyContent: 'space-between',
-        margin:5
+        padding: 10,
+        margin: 5
     },
     title: {
         fontSize: 20,
