@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, FlatList, TextInput, Image, Button } from 'react-native';
 import { useState } from 'react';
 import QuantityInput from '../../components/QuantityInput';
+import MedicinesFooter from '../../components/MedicinesFooter';
+import { commonStyles } from '../../styles/styles';
 
 const MedicinesPage = () => {
     const [searchText, setSearchText] = useState('')
@@ -20,7 +22,7 @@ const MedicinesPage = () => {
             </View> */}
 
             <View style={styles.searchBox}>
-                <Image style={styles.tinyIcon} source={require('../../assets/search.png')} />
+                <Image style={commonStyles.tinyIcon} source={require('../../assets/search.png')} />
                 <TextInput
                     style={styles.input}
                     value={searchText}
@@ -41,6 +43,9 @@ const MedicinesPage = () => {
                     keyExtractor={item => item.id}
                 />
             </View>
+
+            <MedicinesFooter/>
+           
 
             <QuantityInput 
                 medicineName={selectedMedicineDetails.name}
@@ -79,7 +84,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: "flex-start",
-        width: '100%'
+        width: '100%',
+        height:'100%'
     },
     pageTitleContainer: {
         width: '100%',
@@ -91,10 +97,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 30,
         marginTop: 15,
-    },
-    tinyIcon: {
-        height: 20,
-        width: 20,
     },
     searchBox: {
         borderWidth: 1,

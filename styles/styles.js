@@ -18,5 +18,9 @@ export const commonStyles = StyleSheet.create({
     subTitle : {
         fontSize: 15,
         fontWeight: '500'
-    }
+    },
+    tinyIcon: {
+        height: 20,
+        width: 20,
+    },
 })
