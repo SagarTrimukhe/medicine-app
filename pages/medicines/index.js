@@ -17,10 +17,6 @@ const MedicinesPage = () => {
 
     return (
         <View style={styles.medicinePageContainer}>
-            {/* <View style={styles.pageTitleContainer}>
-                <Text style={styles.pageTitle} >Medicines</Text>
-            </View> */}
-
             <View style={styles.searchBox}>
                 <Image style={commonStyles.tinyIcon} source={require('../../assets/search.png')} />
                 <TextInput
@@ -44,8 +40,7 @@ const MedicinesPage = () => {
                 />
             </View>
 
-            <MedicinesFooter/>
-           
+            <MedicinesFooter/>           
 
             <QuantityInput 
                 medicineName={selectedMedicineDetails.name}
@@ -86,17 +81,6 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         width: '100%',
         height:'100%'
-    },
-    pageTitleContainer: {
-        width: '100%',
-        backgroundColor: 'powderblue',
-        padding: 10,
-        borderBottomWidth: 4
-    },
-    pageTitle: {
-        fontWeight: 'bold',
-        fontSize: 30,
-        marginTop: 15,
     },
     searchBox: {
         borderWidth: 1,
