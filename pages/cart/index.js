@@ -1,40 +1,51 @@
 import { View, Text, Button, StyleSheet, FlatList, Pressable } from "react-native";
 import { commonStyles } from "../../styles/styles";
+import { useCartItems } from "../../context/cartContext";
 
 const CartPage = () => {
-    const cartItems = [
-        { id: "1234", name: "Dolosdasasdasdd dasda", quantity: 12, price: 120 },
-        { id: "123", name: "Crocin", quantity: 2, price: 10 }
-    ]
-
+    // const cartItems = [
+    //     { id: "1234", name: "Dolosdasasdasdd dasda", quantity: 12, price: 120 },
+    //     { id: "123", name: "Crocin", quantity: 2, price: 10 }
+    // ]
+    const [cartItems, setCartItems] = useCartItems()
+    console.log(cartItems, setCartItems)
     const total = 100
 
-    return (
-        <View style={styles.pageContainer}>
-            <View style={styles.itemsHeaderLayout}>
-                <Text style={styles.tableHeader}>Items</Text>
-                <Text style={styles.tableHeader}>Price</Text>
-            </View>
+    if (cartItems.length > 0) {
+        return (
+            <View style={styles.pageContainer}>
+                <View style={styles.itemsHeaderLayout}>
+                    <Text style={styles.tableHeader}>Items</Text>
+                    <Text style={styles.tableHeader}>Price</Text>
+                </View>
 
-            <FlatList
-                style={{ width: '100%' }}
-                data={cartItems}
-                renderItem={({ item }) => <CartItem item={item} />}
-                keyExtractor={item => item.id}
-            />
+                <FlatList
+                    style={{ width: '100%' }}
+                    data={cartItems}
+                    renderItem={({ item }) => <CartItem item={item} />}
+                    keyExtractor={item => item.id}
+                />
 
-            <View style={{width:'100%', alignItems:'flex-end', paddingHorizontal:25}}>
-                <Text style={commonStyles.title}>Total: ${total}</Text>
-            </View>
+                <View style={{ width: '100%', alignItems: 'flex-end', paddingHorizontal: 25 }}>
+                    <Text style={commonStyles.title}>Total: ${total}</Text>
+                </View>
 
-            <View style={{margin:10, width:'50%'}}>
-            <Button
-                title="Order"
-                onPress={() => { }}
-            />
+                <View style={{ margin: 10, width: '50%' }}>
+                    <Button
+                        title="Order"
+                        onPress={() => { }}
+                    />
+                </View>
             </View>
-        </View>
-    )
+        )
+    } else {
+        return (
+            <View style={{justifyContent:'center', alignItems:'center', height:'100%'}}>
+                <Text style={{fontSize:35, fontWeight:'800'}}>Your cart is empty!</Text>
+                <Text style={{fontSize:20}}>Add items to cart to order.</Text>
+            </View>)
+    }
+
 }
 
 const CartItem = ({ item }) => {

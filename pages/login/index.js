@@ -26,7 +26,7 @@ const LoginPage = ({navigation}) => {
             </View>
 
             <View>
-                <Text style={styles.inputLabel}>Password</Text>
+                <Text style={commonStyles.inputLabel}>Password</Text>
                 <TextInput
                     style={commonStyles.input}
                     value={password}
@@ -35,7 +35,7 @@ const LoginPage = ({navigation}) => {
                 />
             </View>
 
-            <View>
+            <View style={{width:'50%', margin: 20}}>
                 <Button
                     onPress={onLoginPress}
                     title="Login"
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     },
     loginHeading: {
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 40,
         marginVertical: 10
     }
 })

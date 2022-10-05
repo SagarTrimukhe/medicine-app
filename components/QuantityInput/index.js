@@ -2,14 +2,14 @@ import React from 'react'
 import { View, TextInput, StyleSheet, Text, Button, Modal } from 'react-native'
 import { commonStyles } from '../../styles/styles'
 import { useState } from 'react'
-
-const QuantityInput = ({ medicineName, price, showQuantityModal, setShowQuantityModal }) => {
+import { useCartItems } from '../../context/cartContext'
+const QuantityInput = ({ medicineDetails, showQuantityModal, setShowQuantityModal }) => {
     const [quantity, setQuantity] = useState(0)
-
+    const [cartItems, setCartItems] = useCartItems()
     const addItemtoCart = () => {
-
+        setCartItems([...cartItems, {...medicineDetails, quantity: quantity}])
     }
-
+    console.log(cartItems)
     return (
         <Modal
             animationType="slide"
@@ -18,8 +18,8 @@ const QuantityInput = ({ medicineName, price, showQuantityModal, setShowQuantity
             style={styles.modalView}
         >
             <View style={styles.quantityInput}>
-                <Text style={commonStyles.title}>{medicineName}</Text>
-                <Text style={commonStyles.subTitle}>{`Per Item cost: ${price}`}</Text>
+                <Text style={commonStyles.title}>{medicineDetails.name}</Text>
+                <Text style={commonStyles.subTitle}>{`Per Item cost: ${medicineDetails.price}`}</Text>
                 <TextInput
                     value={quantity}
                     style={commonStyles.input}

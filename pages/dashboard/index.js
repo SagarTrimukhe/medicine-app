@@ -1,25 +1,28 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Pressable } from 'react-native';
 
-const Dashboard = ({navigation}) => {
+const Dashboard = ({ navigation }) => {
     const username = 'Sagar'
 
     return (
         <View style={styles.dashboardPageContainer}>
             <View style={styles.pageTitleContainer}>
                 <Text style={styles.pageTitle}>{`Welcome ${username}`}</Text>
+                <Pressable onPress={()=>{navigation.navigate("Login")}}>
+                <Text style={{borderWidth:1, padding: 10, borderRadius: 5, elevation: 1, shadowColor:'red'}}>Logout</Text>
+                </Pressable>
             </View>
 
             <View style={styles.tilesContainer}>
+                <TouchableOpacity style={styles.tile} onPress={() => { navigation.navigate('Medicines') }}>
+                    <Text style={styles.tileText}>Order Medicines</Text>
+                </TouchableOpacity>
+
                 <TouchableOpacity style={styles.tile} onPress={() => { navigation.navigate('Doctor Appointment') }}>
                     <Text style={styles.tileText}>Book Doctor Appointment</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.tile} onPress={() => { navigation.navigate('Lab Appointment') }}>
                     <Text style={styles.tileText}>Book Lab Appointment</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.tile} onPress={() => { navigation.navigate('Medicines') }}>
-                    <Text style={styles.tileText}>Order Medicines</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -36,15 +39,17 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     pageTitleContainer: {
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-between',
         width: '100%',
         backgroundColor: 'powderblue',
         padding: 10,
-        borderBottomWidth: 4
+        borderBottomWidth: 4,
     },
     pageTitle: {
         fontWeight: 'bold',
-        fontSize: 30,
-        marginTop: 15,
+        fontSize: 30
     },
     tilesContainer: {
         height: 500,

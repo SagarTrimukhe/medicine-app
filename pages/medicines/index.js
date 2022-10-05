@@ -4,7 +4,7 @@ import QuantityInput from '../../components/QuantityInput';
 import MedicinesFooter from '../../components/MedicinesFooter';
 import { commonStyles } from '../../styles/styles';
 
-const MedicinesPage = () => {
+const MedicinesPage = ({ navigation }) => {
     const [searchText, setSearchText] = useState('')
     const [showQuantityModal, setShowQuantityModal] = useState(false)
     const [selectedMedicineDetails, setSelectedMedicineDetails] = useState({})
@@ -30,21 +30,21 @@ const MedicinesPage = () => {
             <View style={styles.medicinesListContainer}>
                 <FlatList
                     data={medicinesData}
-                    renderItem={({item}) => medicineItem(
-                        {
-                            item: item,
-                            setSelectedMedicineDetails,
-                            openQuantityModal: () => { setShowQuantityModal(true) }
-                        })}
+                    renderItem={({ item }) => (
+                        <MedicineItem
+                            item={item}
+                            setSelectedMedicineDetails={setSelectedMedicineDetails}
+                            openQuantityModal={() => { setShowQuantityModal(true) }}
+                        />
+                    )}
                     keyExtractor={item => item.id}
                 />
             </View>
 
-            <MedicinesFooter/>           
+            <MedicinesFooter navigation={navigation} />
 
-            <QuantityInput 
-                medicineName={selectedMedicineDetails.name}
-                price ={selectedMedicineDetails.price}
+            <QuantityInput
+                medicineDetails={selectedMedicineDetails}
                 showQuantityModal={showQuantityModal}
                 setShowQuantityModal={setShowQuantityModal}
             />
@@ -53,8 +53,7 @@ const MedicinesPage = () => {
     )
 }
 
-const medicineItem = ({ item, setSelectedMedicineDetails, openQuantityModal }) => {
-
+const MedicineItem = ({ item, setSelectedMedicineDetails, openQuantityModal }) => {
     return (
         <View style={styles.medicineItem}>
             <View>
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: "flex-start",
         width: '100%',
-        height:'100%'
+        height: '100%'
     },
     searchBox: {
         borderWidth: 1,
