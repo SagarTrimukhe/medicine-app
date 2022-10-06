@@ -9,11 +9,10 @@ const MedicinesPage = ({ navigation }) => {
     const [showQuantityModal, setShowQuantityModal] = useState(false)
     const [selectedMedicineDetails, setSelectedMedicineDetails] = useState({})
     const medicinesData = [
-        { id: "123", name: "Dolo", description: "test desc", price: 10 },
-        { id: "34", name: "Crocin", description: "test desc", price: 20 },
-        { id: "43", name: "Xenon", description: "test desc", price: 30 }
+        { id: "1", name: "Dolo", description: "Dolo 650 Tablet helps relieve pain and fever by blocking the release of certain chemical messengers responsible for fever and pain. It is used to treat headaches, migraine, nerve pain, toothache, sore throat, period (menstrual) pains, arthritis, muscle aches, and the common cold.", price: 10 },
+        { id: "2", name: "Crocin", description: "test desc", price: 20 },
+        { id: "3", name: "Xenon", description: "test desc", price: 30 }
     ]
-
 
     return (
         <View style={styles.medicinePageContainer}>
@@ -43,11 +42,13 @@ const MedicinesPage = ({ navigation }) => {
 
             <MedicinesFooter navigation={navigation} />
 
-            <QuantityInput
-                medicineDetails={selectedMedicineDetails}
-                showQuantityModal={showQuantityModal}
-                setShowQuantityModal={setShowQuantityModal}
-            />
+            {showQuantityModal &&
+                <QuantityInput
+                    medicineDetails={selectedMedicineDetails}
+                    showQuantityModal={showQuantityModal}
+                    setShowQuantityModal={setShowQuantityModal}
+                />
+            }
 
         </View>
     )
@@ -56,7 +57,7 @@ const MedicinesPage = ({ navigation }) => {
 const MedicineItem = ({ item, setSelectedMedicineDetails, openQuantityModal }) => {
     return (
         <View style={styles.medicineItem}>
-            <View>
+            <View style={{width:'60%'}}>
                 <Text style={styles.title}>{item.name}</Text>
                 <Text style={styles.description}>{item.description}</Text>
             </View>
@@ -96,11 +97,11 @@ const styles = StyleSheet.create({
     },
     medicinesListContainer: {
         height: 500,
+        width:"100%",
         justifyContent: "space-around"
     },
     medicineItem: {
-        height: 100,
-        width: 300,
+        width: '100%',
         borderColor: "grey",
         borderWidth: 2,
         borderRadius: 10,

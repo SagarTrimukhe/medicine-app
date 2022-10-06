@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, TextInput, StyleSheet, Text, Button, Modal } from 'react-native'
 import { commonStyles } from '../../styles/styles'
 import { useState } from 'react'
@@ -8,8 +8,9 @@ const QuantityInput = ({ medicineDetails, showQuantityModal, setShowQuantityModa
     const [cartItems, setCartItems] = useCartItems()
     const addItemtoCart = () => {
         setCartItems([...cartItems, {...medicineDetails, quantity: quantity}])
+        setShowQuantityModal(false)
     }
-    console.log(cartItems)
+
     return (
         <Modal
             animationType="slide"
