@@ -1,18 +1,28 @@
 import { StyleSheet, Text, View, FlatList, TextInput, Image, Button } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import QuantityInput from '../../components/QuantityInput';
 import MedicinesFooter from '../../components/MedicinesFooter';
 import { commonStyles } from '../../styles/styles';
 
+import { getDatabase, ref, onValue } from 'firebase/database';
+
 const MedicinesPage = ({ navigation }) => {
+    const [medicinesData, setMedicinesData] = useState([])
     const [searchText, setSearchText] = useState('')
     const [showQuantityModal, setShowQuantityModal] = useState(false)
     const [selectedMedicineDetails, setSelectedMedicineDetails] = useState({})
-    const medicinesData = [
-        { id: "1", name: "Dolo", description: "Dolo 650 Tablet helps relieve pain and fever by blocking the release of certain chemical messengers responsible for fever and pain. It is used to treat headaches, migraine, nerve pain, toothache, sore throat, period (menstrual) pains, arthritis, muscle aches, and the common cold.", price: 10 },
-        { id: "2", name: "Crocin", description: "test desc", price: 20 },
-        { id: "3", name: "Xenon", description: "test desc", price: 30 }
-    ]
+
+    const db = getDatabase()
+    const medicinesRef = ref(db, '/medicines')
+
+    useEffect(() => {
+        onValue(medicinesRef, (snapshot) => {
+            const data = snapshot.val()
+            console.log(data.slice(1,3))
+            setMedicinesData(data.slice(1,3))
+        })
+    }, [])
+
 
     return (
         <View style={styles.medicinePageContainer}>
@@ -57,7 +67,7 @@ const MedicinesPage = ({ navigation }) => {
 const MedicineItem = ({ item, setSelectedMedicineDetails, openQuantityModal }) => {
     return (
         <View style={styles.medicineItem}>
-            <View style={{width:'60%'}}>
+            <View style={{ width: '60%' }}>
                 <Text style={styles.title}>{item.name}</Text>
                 <Text style={styles.description}>{item.description}</Text>
             </View>
@@ -97,7 +107,7 @@ const styles = StyleSheet.create({
     },
     medicinesListContainer: {
         height: 500,
-        width:"100%",
+        width: "100%",
         justifyContent: "space-around"
     },
     medicineItem: {

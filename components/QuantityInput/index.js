@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View, TextInput, StyleSheet, Text, Button, Modal } from 'react-native'
 import { commonStyles } from '../../styles/styles'
 import { useState } from 'react'
-import { useCartItems } from '../../context/cartContext'
+import { useCartItems } from '../../context/globalContext'
+
 const QuantityInput = ({ medicineDetails, showQuantityModal, setShowQuantityModal }) => {
     const [quantity, setQuantity] = useState(0)
     const [cartItems, setCartItems] = useCartItems()
+    
     const addItemtoCart = () => {
         setCartItems([...cartItems, {...medicineDetails, quantity: quantity}])
         setShowQuantityModal(false)

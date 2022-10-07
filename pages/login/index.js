@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { useState } from 'react'
 import { commonStyles } from '../../styles/styles';
 
+
 const LoginPage = ({navigation}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

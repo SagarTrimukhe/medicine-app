@@ -1,12 +1,21 @@
 import { View, Text, Button, StyleSheet, FlatList, Pressable } from "react-native";
 import { commonStyles } from "../../styles/styles";
-import { useCartItems } from "../../context/cartContext";
+import { useCartItems, useUserDetails } from "../../context/globalContext";
 import { calculateCartTotal } from "./utils";
+import { getDatabase, ref, set } from 'firebase/database';
 
 const CartPage = () => {
     const [cartItems] = useCartItems()
+    const [userDetails] = useUserDetails()
     const total = calculateCartTotal(cartItems)
 
+
+    const submitOrder = () => {
+        const db = getDatabase();
+        const reference = ref(db, 'orders/' + userDetails.id + '/'+ uuidv4());
+        set(reference, cartItems);
+      }
+ 
     if (cartItems.length > 0) {
         return (
             <View style={styles.pageContainer}>
@@ -29,7 +38,7 @@ const CartPage = () => {
                 <View style={{ margin: 10, width: '50%' }}>
                     <Button
                         title="Order"
-                        onPress={() => { }}
+                        onPress={() => { submitOrder() }}
                     />
                 </View>
             </View>
