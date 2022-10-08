@@ -1,8 +1,9 @@
 import { View, Text, Button, StyleSheet, FlatList, Pressable } from "react-native";
 import { commonStyles } from "../../styles/styles";
 import { useCartItems, useUserDetails } from "../../context/globalContext";
-import { calculateCartTotal } from "./utils";
+import { calculateCartTotal, updateCartDataWithDate } from "./utils";
 import { getDatabase, ref, set } from 'firebase/database';
+import {v4 as uuidv4} from 'uuid'
 
 const CartPage = () => {
     const [cartItems] = useCartItems()
@@ -11,11 +12,14 @@ const CartPage = () => {
 
 
     const submitOrder = () => {
-        const db = getDatabase();
-        const reference = ref(db, 'orders/' + userDetails.id + '/'+ uuidv4());
-        set(reference, cartItems);
-      }
- 
+        const updatedCartData = updateCartDataWithDate(cartItems)
+        console.log("new cart data", updatedCartData)
+        const db = getDatabase()
+        const orderId = uuidv4()
+        const reference = ref(db, 'orders/' + userDetails.id + '/' + orderId);
+        set(reference, updatedCartData);
+    }
+
     if (cartItems.length > 0) {
         return (
             <View style={styles.pageContainer}>

@@ -7,31 +7,38 @@ import { getAllTransactions } from "./utils";
 
 const TransactionsPage = () => {
     const [transactions, setTransactions] = useState([])
-  
 
-    const [userDetails] =  useUserDetails()
+
+    const [userDetails] = useUserDetails()
     const db = getDatabase()
     const ordersRef = ref(db, '/orders' + '/' + userDetails.id)
     useEffect(() => {
         onValue(ordersRef, (snapshot) => {
-            console.log(snapshot.val())
-            const data = snapshot.val()
+            const data = snapshot.val() || {}
             const transactionData = getAllTransactions(data)
             console.log(transactionData)
             setTransactions(transactionData)
         })
     }, [])
 
-    return (
-        <View>
-            <FlatList
-                style={{ width: '100%' }}
-                data={transactions}
-                renderItem={({ item }) => <TransactionItem item={item} />}
-                keyExtractor={item => item.id}
-            />
-        </View>
-    )
+    if (transactions.length > 0) {
+        return (
+            <View>
+                <FlatList
+                    style={{ width: '100%' }}
+                    data={transactions}
+                    renderItem={({ item }) => <TransactionItem item={item} />}
+                    keyExtractor={item => item.id}
+                />
+            </View>
+        )
+    } else {
+        return (
+            <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                <Text style={{ fontSize: 35, fontWeight: '800' }}>No order history found.</Text>
+            </View>
+        )
+    }
 }
 
 const transactions = {
@@ -80,15 +87,15 @@ const transactions = {
 
 const TransactionItem = ({ item }) => {
     return (
-        <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between', padding: 20, borderBottomWidth:1}}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 20, borderBottomWidth: 1 }}>
             <View>
                 <Text style={commonStyles.title}>{item.name}</Text>
                 <Text style={commonStyles.subTitle}>Ordered on {item.ordered_date}</Text>
-                <View style={{ flexDirection: 'row', marginVertical: 5}}>
-                    <Text style={{...commonStyles.subTitle, marginRight:5}}>Qty: {item.quantity}</Text>
-                    <Text style={{...commonStyles.subTitle, marginLeft:5}}>Cost: ${item.cost}</Text>
+                <View style={{ flexDirection: 'row', marginVertical: 5 }}>
+                    <Text style={{ ...commonStyles.subTitle, marginRight: 5 }}>Qty: {item.quantity}</Text>
+                    <Text style={{ ...commonStyles.subTitle, marginLeft: 5 }}>Cost: ${item.cost}</Text>
                 </View>
-               
+
             </View>
 
             <View>

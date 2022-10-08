@@ -3,5 +3,9 @@ export const getAllTransactions = (ordersData) => {
     Object.values(ordersData).forEach((arr)=>{
         transactions = [...transactions, ...arr]
     })
+    transactions.forEach((obj)=>{
+        obj.cost = Number(obj.price) * Number(obj.quantity)
+        obj.ordered_date = new Date(obj.ordered_date).toLocaleDateString()
+    })
     return transactions
 }
