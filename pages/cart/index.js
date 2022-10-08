@@ -5,8 +5,8 @@ import { calculateCartTotal, updateCartDataWithDate } from "./utils";
 import { getDatabase, ref, set } from 'firebase/database';
 import {v4 as uuidv4} from 'uuid'
 
-const CartPage = () => {
-    const [cartItems] = useCartItems()
+const CartPage = ({navigation}) => {
+    const [cartItems, setCartItems] = useCartItems()
     const [userDetails] = useUserDetails()
     const total = calculateCartTotal(cartItems)
 
@@ -17,7 +17,10 @@ const CartPage = () => {
         const db = getDatabase()
         const orderId = uuidv4()
         const reference = ref(db, 'orders/' + userDetails.id + '/' + orderId);
-        set(reference, updatedCartData);
+        set(reference, updatedCartData).then(()=>{
+            setCartItems([])
+            navigation.navigate('Medicines')
+        })
     }
 
     if (cartItems.length > 0) {

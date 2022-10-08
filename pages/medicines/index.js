@@ -18,8 +18,7 @@ const MedicinesPage = ({ navigation }) => {
     useEffect(() => {
         onValue(medicinesRef, (snapshot) => {
             const data = snapshot.val()
-            console.log(data.slice(1,3))
-            setMedicinesData(data.slice(1,3))
+            setMedicinesData(data.slice(1))
         })
     }, [])
 
