@@ -7,9 +7,9 @@ import { useCartItems } from '../../context/globalContext'
 const QuantityInput = ({ medicineDetails, showQuantityModal, setShowQuantityModal }) => {
     const [quantity, setQuantity] = useState(0)
     const [cartItems, setCartItems] = useCartItems()
-    
+
     const addItemtoCart = () => {
-        setCartItems([...cartItems, {...medicineDetails, quantity: quantity}])
+        setCartItems([...cartItems, { ...medicineDetails, quantity: quantity }])
         setShowQuantityModal(false)
     }
 
@@ -22,7 +22,7 @@ const QuantityInput = ({ medicineDetails, showQuantityModal, setShowQuantityModa
         >
             <View style={styles.quantityInput}>
                 <Text style={commonStyles.title}>{medicineDetails.name}</Text>
-                <Text style={commonStyles.subTitle}>{`Per Item cost: ${medicineDetails.price}`}</Text>
+                <Text style={commonStyles.subTitle}>{`Per item cost: $${medicineDetails.price}`}</Text>
                 <TextInput
                     value={quantity}
                     style={commonStyles.input}
@@ -30,16 +30,23 @@ const QuantityInput = ({ medicineDetails, showQuantityModal, setShowQuantityModa
                     onChangeText={setQuantity}
                 />
 
-                <Button
-                    title='Add'
-                    onPress={addItemtoCart}
-                />
+                <View style={{ flexDirection: "row" }}>
+                    <View style={{ margin: 5, width:100 }}>
+                        <Button
 
-                <Button
-                    title='Cancel'
-                    onPress={() => { setShowQuantityModal(false) }}
-                    color='red'
-                />
+                            title='Add'
+                            onPress={addItemtoCart}
+                        />
+                    </View>
+
+                    <View style={{ margin: 5, width:100 }}>
+                        <Button
+                            title='Cancel'
+                            onPress={() => { setShowQuantityModal(false) }}
+                            color='red'
+                        />
+                    </View>
+                </View>
             </View>
         </Modal>
     )

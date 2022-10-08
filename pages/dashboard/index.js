@@ -1,12 +1,18 @@
 import { StyleSheet, Text, View, TouchableOpacity, Pressable } from 'react-native';
+import { useUserDetails } from '../../context/globalContext';
 
 const Dashboard = ({ navigation }) => {
-    const username = 'Sagar'
+    const [userDetails, setUserDetails] = useUserDetails()
+    const username = userDetails.id || ''
+
+    const formattedUsername = () => {
+        return username?.charAt(0)?.toUpperCase()+username.slice(1)
+    }
 
     return (
         <View style={styles.dashboardPageContainer}>
             <View style={styles.pageTitleContainer}>
-                <Text style={styles.pageTitle}>{`Welcome ${username}`}</Text>
+                <Text style={styles.pageTitle}>{`Welcome ${formattedUsername(username)}`}</Text>
                 <Pressable onPress={()=>{navigation.navigate("Login")}}>
                 <Text style={{borderWidth:1, padding: 10, borderRadius: 5, elevation: 1, shadowColor:'red'}}>Logout</Text>
                 </Pressable>

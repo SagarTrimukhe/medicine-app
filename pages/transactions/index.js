@@ -16,7 +16,6 @@ const TransactionsPage = () => {
         onValue(ordersRef, (snapshot) => {
             const data = snapshot.val() || {}
             const transactionData = getAllTransactions(data)
-            console.log(transactionData)
             setTransactions(transactionData)
         })
     }, [])
@@ -28,7 +27,7 @@ const TransactionsPage = () => {
                     style={{ width: '100%' }}
                     data={transactions}
                     renderItem={({ item }) => <TransactionItem item={item} />}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item.orderId}
                 />
             </View>
         )

@@ -12,10 +12,9 @@ const CartPage = ({navigation}) => {
 
 
     const submitOrder = () => {
-        const updatedCartData = updateCartDataWithDate(cartItems)
-        console.log("new cart data", updatedCartData)
-        const db = getDatabase()
         const orderId = uuidv4()
+        const updatedCartData = updateCartDataWithDate(cartItems, orderId)
+        const db = getDatabase()
         const reference = ref(db, 'orders/' + userDetails.id + '/' + orderId);
         set(reference, updatedCartData).then(()=>{
             setCartItems([])

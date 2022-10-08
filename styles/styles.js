@@ -7,7 +7,7 @@ export const commonStyles = StyleSheet.create({
     input: {
         height: 40,
         width: 250,
-        marginBottom: 10,
+        marginBottom: 5,
         borderWidth: 1,
         padding: 10,
     },

@@ -31,12 +31,13 @@ const MedicinesPage = ({ navigation }) => {
                     style={styles.input}
                     value={searchText}
                     onChangeText={setSearchText}
-                    placeholder="Search medicine."
+                    placeholder="Search medicines."
                 />
             </View>
 
             <View style={styles.medicinesListContainer}>
                 <FlatList
+                    style={{height:'80%'}}
                     data={medicinesData}
                     renderItem={({ item }) => (
                         <MedicineItem
@@ -66,13 +67,13 @@ const MedicinesPage = ({ navigation }) => {
 const MedicineItem = ({ item, setSelectedMedicineDetails, openQuantityModal }) => {
     return (
         <View style={styles.medicineItem}>
-            <View style={{ width: '60%' }}>
+            <View style={{ width: '70%' }}>
                 <Text style={styles.title}>{item.name}</Text>
                 <Text style={styles.description}>{item.description}</Text>
             </View>
 
-            <View>
-                <Text>{`$${item.price}`}</Text>
+            <View style={{alignItems:'center', width:'30%'}}>
+                <Text style={{fontWeight:'600', fontSize: 25, margin:10}}>{`$${item.price}`}</Text>
                 <Button title='Add to cart' onPress={() => {
                     setSelectedMedicineDetails(item)
                     openQuantityModal()
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     medicinePageContainer: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: "flex-start",
+        justifyContent: "space-between",
         width: '100%',
         height: '100%'
     },
@@ -105,9 +106,9 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     medicinesListContainer: {
-        height: 500,
-        width: "100%",
-        justifyContent: "space-around"
+        width: "90%",
+        justifyContent: "space-around",
+        alignItems:'center',
     },
     medicineItem: {
         width: '100%',
@@ -115,10 +116,10 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 10,
         flexDirection: 'row',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         justifyContent: 'space-between',
         padding: 10,
-        margin: 5
+        marginVertical: 5
     },
     title: {
         fontSize: 20,
@@ -126,5 +127,6 @@ const styles = StyleSheet.create({
     },
     description: {
         fontSize: 15,
+        textAlign:'justify'
     }
 })
