@@ -8,6 +8,7 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 
 const MedicinesPage = ({ navigation }) => {
     const [medicinesData, setMedicinesData] = useState([])
+    const [filteredMedicinesData, setFilteredMedicinesData] = useState([])
     const [searchText, setSearchText] = useState('')
     const [showQuantityModal, setShowQuantityModal] = useState(false)
     const [selectedMedicineDetails, setSelectedMedicineDetails] = useState({})
@@ -19,9 +20,16 @@ const MedicinesPage = ({ navigation }) => {
         onValue(medicinesRef, (snapshot) => {
             const data = snapshot.val()
             setMedicinesData(data.slice(1))
+            setFilteredMedicinesData(data.slice(1))
         })
     }, [])
 
+    const handleSearch = (text) => {
+        setSearchText(text)
+        const escapedText = text.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
+        const exp = new RegExp(escapedText, 'i');
+        setFilteredMedicinesData(medicinesData.filter((o) => exp.test(o.name)));     
+    }
 
     return (
         <View style={styles.medicinePageContainer}>
@@ -30,7 +38,9 @@ const MedicinesPage = ({ navigation }) => {
                 <TextInput
                     style={styles.input}
                     value={searchText}
-                    onChangeText={setSearchText}
+                    onChangeText={(text)=>{
+                      handleSearch(text)  
+                    }}
                     placeholder="Search medicines."
                 />
             </View>
@@ -38,7 +48,7 @@ const MedicinesPage = ({ navigation }) => {
             <View style={styles.medicinesListContainer}>
                 <FlatList
                     style={{height:'80%'}}
-                    data={medicinesData}
+                    data={filteredMedicinesData}
                     renderItem={({ item }) => (
                         <MedicineItem
                             item={item}
@@ -98,7 +108,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 5,
-        marginVertical: 10
+        marginVertical: 10,
+        borderRadius:5
     },
     input: {
         height: 20,
