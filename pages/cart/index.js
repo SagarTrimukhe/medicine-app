@@ -1,130 +1,140 @@
-import { View, Text, Button, StyleSheet, FlatList, Pressable } from "react-native";
-import { commonStyles } from "../../styles/styles";
-import { useCartItems, useUserDetails } from "../../context/globalContext";
-import { calculateCartTotal, updateCartDataWithDate } from "./utils";
+import React, { useState } from 'react';
+import {
+  View, Text, Button, StyleSheet, FlatList, Pressable,
+} from 'react-native';
 import { getDatabase, ref, set } from 'firebase/database';
-import { v4 as uuidv4 } from 'uuid'
-import { useState } from "react";
-import ToastNotification  from '../../components/ToastNotification'
+import { v4 as uuidv4 } from 'uuid';
+import { commonStyles } from '../../styles/styles';
+import { useCartItems, useUserDetails } from '../../context/globalContext';
+import { calculateCartTotal, updateCartDataWithDate } from './utils';
+import ToastNotification from '../../components/ToastNotification';
 
-const CartPage = ({ navigation }) => {
-    const [cartItems, setCartItems] = useCartItems()
-    const [userDetails] = useUserDetails()
-    const [showNotification, setShowNotification] = useState(false)
-    const total = calculateCartTotal(cartItems)
+function CartPage({ navigation }) {
+  const [cartItems, setCartItems] = useCartItems();
+  const [userDetails] = useUserDetails();
+  const [showNotification, setShowNotification] = useState(false);
+  const total = calculateCartTotal(cartItems);
 
-    const submitOrder = () => {
-        const order_id = uuidv4()
-        const updatedCartData = updateCartDataWithDate(cartItems, order_id)
-        const db = getDatabase()
-        const reference = ref(db, 'orders/' + userDetails.id + '/' + order_id);
-        set(reference, updatedCartData).then(() => {
-            setShowNotification(true)
-            setTimeout(() => {
-                setShowNotification(false)
-                setCartItems([])
-                navigation.navigate('Medicines')
-            }, 3000);
-        })
-    }
+  const submitOrder = () => {
+    const orderId = uuidv4();
+    const updatedCartData = updateCartDataWithDate(cartItems, orderId);
+    const db = getDatabase();
+    const reference = ref(db, `orders/${userDetails.id}/${orderId}`);
+    set(reference, updatedCartData).then(() => {
+      setShowNotification(true);
+      setTimeout(() => {
+        setShowNotification(false);
+        setCartItems([]);
+        navigation.navigate('Medicines');
+      }, 3000);
+    });
+  };
 
-    if (cartItems.length > 0) {
-        return (
-            <View style={styles.pageContainer}>
-                <View style={styles.itemsHeaderLayout}>
-                    <Text style={styles.tableHeader}>Items</Text>
-                    <Text style={styles.tableHeader}>Price</Text>
-                </View>
+  if (cartItems.length > 0) {
+    return (
+      <View style={styles.pageContainer}>
+        <View style={styles.itemsHeaderLayout}>
+          <Text style={styles.tableHeader}>Items</Text>
+          <Text style={styles.tableHeader}>Price</Text>
+        </View>
 
-                <FlatList
-                    style={{ width: '100%' }}
-                    data={cartItems}
-                    renderItem={({ item }) => <CartItem item={item} />}
-                    keyExtractor={item => item.id}
-                />
+        <FlatList
+          style={{ width: '100%' }}
+          data={cartItems}
+          renderItem={({ item }) => <CartItem item={item} />}
+          keyExtractor={(item) => item.id}
+        />
 
-                <View style={{ width: '100%', alignItems: 'flex-end', paddingHorizontal: 25 }}>
-                    <Text style={commonStyles.title}>Total: ${total}</Text>
-                </View>
+        <View style={{ width: '100%', alignItems: 'flex-end', paddingHorizontal: 25 }}>
+          <Text style={commonStyles.title}>
+            Total: $
+            {total}
+          </Text>
+        </View>
 
-                <View style={{ margin: 10, width: '50%' }}>
-                    <Button
-                        title="Order"
-                        onPress={() => { submitOrder() }}
-                    />
-                </View>
+        <View style={{ margin: 10, width: '50%' }}>
+          <Button
+            title="Order"
+            onPress={() => { submitOrder(); }}
+          />
+        </View>
 
-                {showNotification &&  <ToastNotification message={'Order Placed!'} onClose={()=>{}} />}
-            </View>
-        )
-    } else {
-        return (
-            <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-                <Text style={{ fontSize: 35, fontWeight: '800' }}>Your cart is empty!</Text>
-                <Text style={{ fontSize: 20 }}>Add items to cart to order.</Text>
-            </View>)
-    }
-
+        {showNotification && <ToastNotification message="Order Placed!" onClose={() => {}} />}
+      </View>
+    );
+  }
+  return (
+    <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+      <Text style={{ fontSize: 35, fontWeight: '800' }}>Your cart is empty!</Text>
+      <Text style={{ fontSize: 20 }}>Add items to cart to order.</Text>
+    </View>
+  );
 }
 
-const CartItem = ({ item }) => {
-    const [cartItems, setCartItems] = useCartItems()
+function CartItem({ item }) {
+  const [cartItems, setCartItems] = useCartItems();
 
-    const handleRemove = (obj) => {
-        const res = cartItems.filter((x) => (
-            x.id != obj.id
-        ))
-        setCartItems(res)
-    }
+  const handleRemove = (obj) => {
+    const res = cartItems.filter((x) => (
+      x.id !== obj.id
+    ));
+    setCartItems(res);
+  };
 
-    return (
-        <View style={styles.cartItem}>
-            <View>
-                <Text style={commonStyles.title}>{item.name}</Text>
-                <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                    <Text style={commonStyles.subTitle}>Qty: {item.quantity}</Text>
-                    <Pressable style={{ marginHorizontal: 10 }} onPress={() => { handleRemove(item) }}>
-                        <Text style={{ color: 'red' }}>Remove</Text>
-                    </Pressable>
-                </View>
-            </View>
-
-            <Text>${item.quantity * item.price}</Text>
+  return (
+    <View style={styles.cartItem}>
+      <View>
+        <Text style={commonStyles.title}>{item.name}</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text style={commonStyles.subTitle}>
+            Qty:
+            {item.quantity}
+          </Text>
+          <Pressable style={{ marginHorizontal: 10 }} onPress={() => { handleRemove(item); }}>
+            <Text style={{ color: 'red' }}>Remove</Text>
+          </Pressable>
         </View>
-    )
+      </View>
+
+      <Text>
+        $
+        {item.quantity * item.price}
+      </Text>
+    </View>
+  );
 }
 
 export default CartPage;
 
 const styles = StyleSheet.create({
-    pageContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: "flex-start",
-        width: '100%',
-        height: '100%'
-    },
-    cartItem: {
-        marginVertical: 15,
-        paddingBottom: 10,
-        flexDirection: "row",
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: '100%',
-        paddingHorizontal: 30,
-        borderBottomWidth: 1,
-        borderBottomColor: 'grey',
-    },
-    itemsHeaderLayout: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%',
-        paddingHorizontal: 30,
-        paddingVertical: 15,
-        borderBottomWidth: 2
-    },
-    tableHeader: {
-        fontSize: 15,
-        fontWeight: 'bold'
-    }
-})
+  pageContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '100%',
+    height: '100%',
+  },
+  cartItem: {
+    marginVertical: 15,
+    paddingBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: 30,
+    borderBottomWidth: 1,
+    borderBottomColor: 'grey',
+  },
+  itemsHeaderLayout: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: 30,
+    paddingVertical: 15,
+    borderBottomWidth: 2,
+  },
+  tableHeader: {
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+});
