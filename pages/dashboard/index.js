@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 import {
   StyleSheet, Text, View, TouchableOpacity, Pressable, Image,
 } from 'react-native';
 import { useUserDetails } from '../../context/globalContext';
-import { commonStyles } from '../../styles/styles';
+import commonStyles from '../../styles/styles';
 
 function Dashboard({ navigation }) {
   const [userDetails] = useUserDetails();

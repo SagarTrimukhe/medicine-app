@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import Toast from 'react-native-root-toast';
-import { commonStyles } from '../../styles/styles';
+import commonStyles from '../../styles/styles';
 import { useUserDetails, useCartItems } from '../../context/globalContext';
 import { getAllTransactions } from './utils';
 

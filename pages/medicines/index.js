@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import QuantityInput from '../../components/QuantityInput';
 import MedicinesFooter from '../../components/MedicinesFooter';
-import { commonStyles } from '../../styles/styles';
+import commonStyles from '../../styles/styles';
 
 function MedicinesPage({ navigation }) {
   const [medicinesData, setMedicinesData] = useState([]);

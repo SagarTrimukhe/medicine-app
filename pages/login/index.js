@@ -3,7 +3,7 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { getDatabase, ref, get } from 'firebase/database';
-import { commonStyles } from '../../styles/styles';
+import commonStyles from '../../styles/styles';
 import { useUserDetails } from '../../context/globalContext';
 
 function LoginPage({ navigation }) {

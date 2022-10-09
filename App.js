@@ -10,7 +10,7 @@ import MedicinesPage from './pages/medicines';
 import CartPage from './pages/cart';
 import TransactionsPage from './pages/transactions';
 import DoctorAppointmentPage from './pages/doctorAppointment';
-import LabAppointmentPage from './pages/lapAppointment';
+import LabAppointmentPage from './pages/labAppointment';
 
 import { GolbalContextProvider } from './context/globalContext';
 

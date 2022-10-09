@@ -2,7 +2,7 @@ import React from 'react';
 import {
   View, Pressable, Text, StyleSheet, Image,
 } from 'react-native';
-import { commonStyles } from '../../styles/styles';
+import commonStyles from '../../styles/styles';
 
 function MedicinesFooter({ navigation }) {
   return (

@@ -5,7 +5,7 @@ import {
 import { getDatabase, ref, set } from 'firebase/database';
 import { v4 as uuidv4 } from 'uuid';
 import Toast from 'react-native-root-toast';
-import { commonStyles } from '../../styles/styles';
+import commonStyles from '../../styles/styles';
 import { useCartItems, useUserDetails } from '../../context/globalContext';
 import { calculateCartTotal, updateCartDataWithDate } from './utils';
 

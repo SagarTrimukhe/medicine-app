@@ -3,7 +3,7 @@ import {
   View, TextInput, StyleSheet, Text, Button, Modal,
 } from 'react-native';
 import Toast from 'react-native-root-toast';
-import { commonStyles } from '../../styles/styles';
+import commonStyles from '../../styles/styles';
 import { useCartItems } from '../../context/globalContext';
 
 function QuantityInput({ medicineDetails, showQuantityModal, setShowQuantityModal }) {
