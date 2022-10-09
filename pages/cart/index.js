@@ -2,6 +2,7 @@ import React from 'react';
 import {
   View, Text, Button, StyleSheet, FlatList, Pressable,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import { getDatabase, ref, set } from 'firebase/database';
 import { v4 as uuidv4 } from 'uuid';
 import Toast from 'react-native-root-toast';
@@ -70,6 +71,12 @@ function CartPage({ navigation }) {
   );
 }
 
+CartPage.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 function CartItem({ item }) {
   const [cartItems, setCartItems] = useCartItems();
 
@@ -102,6 +109,14 @@ function CartItem({ item }) {
     </View>
   );
 }
+
+CartItem.propTypes = {
+  item: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 export default CartPage;
 

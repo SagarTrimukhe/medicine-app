@@ -10,4 +10,3 @@ function LabAppointmentPage() {
 }
 
 export default LabAppointmentPage;
-

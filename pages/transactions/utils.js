@@ -5,10 +5,10 @@ export const getAllTransactions = (ordersData) => {
     transactions = [...transactions, ...arr];
   });
 
-  transactions.forEach((obj) => {
-    obj.cost = Number(obj.price) * Number(obj.quantity);
-    obj.ordered_date = `${new Date(obj.ordered_date).toLocaleDateString()} ${new Date(obj.ordered_date).toLocaleTimeString()}`;
+  return transactions.map((obj) => {
+    const newObj = { ...obj };
+    newObj.cost = Number(obj.price) * Number(obj.quantity);
+    newObj.ordered_date = `${new Date(obj.ordered_date).toLocaleDateString()} ${new Date(obj.ordered_date).toLocaleTimeString()}`;
+    return newObj;
   });
-
-  return transactions;
 };

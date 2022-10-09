@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import {
   View, TextInput, StyleSheet, Text, Button, Modal,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import Toast from 'react-native-root-toast';
 import commonStyles from '../../styles/styles';
 import { useCartItems } from '../../context/globalContext';
 
-function QuantityInput({ medicineDetails, showQuantityModal, setShowQuantityModal }) {
+function QuantityInput({ medicineDetails, showQuantityModal, closeQuantityModal }) {
   const [quantity, setQuantity] = useState(0);
   const [cartItems, setCartItems] = useCartItems();
 
@@ -18,7 +19,7 @@ function QuantityInput({ medicineDetails, showQuantityModal, setShowQuantityModa
       textColor: 'black',
       position: 0,
     });
-    setShowQuantityModal(false);
+    closeQuantityModal();
   };
 
   return (
@@ -50,7 +51,7 @@ function QuantityInput({ medicineDetails, showQuantityModal, setShowQuantityModa
           <View style={{ margin: 5, width: 100 }}>
             <Button
               title="Cancel"
-              onPress={() => { setShowQuantityModal(false); }}
+              onPress={closeQuantityModal}
               color="red"
             />
           </View>
@@ -59,6 +60,15 @@ function QuantityInput({ medicineDetails, showQuantityModal, setShowQuantityModa
     </Modal>
   );
 }
+
+QuantityInput.propTypes = {
+  medicineDetails: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
+  showQuantityModal: PropTypes.bool.isRequired,
+  closeQuantityModal: PropTypes.func.isRequired,
+};
 
 export default QuantityInput;
 
