@@ -4,6 +4,8 @@ import { useUserDetails } from "../../context/globalContext";
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { useState, useEffect } from "react";
 import { getAllTransactions } from "./utils";
+import ToastNotification from "../../components/ToastNotification";
+import { useCartItems } from "../../context/globalContext";
 
 const TransactionsPage = () => {
     const [transactions, setTransactions] = useState([])
@@ -27,7 +29,7 @@ const TransactionsPage = () => {
                     style={{ width: '100%' }}
                     data={transactions}
                     renderItem={({ item }) => <TransactionItem item={item} />}
-                    keyExtractor={item => item.orderId}
+                    keyExtractor={item => item.order_id+item.id}
                 />
             </View>
         )
@@ -85,6 +87,21 @@ const transactions = {
 }
 
 const TransactionItem = ({ item }) => {
+    const [cartItems, setCartItems] = useCartItems()
+    const [showNotification, setShowNotification] = useState(false)
+
+    const handleReorder = () => {       
+        const orderItem = {...item}
+        delete orderItem.order_id
+        delete orderItem.ordere_date
+        delete orderItem.cost
+        setCartItems([...cartItems, orderItem])
+        setShowNotification(true)
+        setTimeout(()=>{
+            setShowNotification(false)
+        },3000)
+    }
+
     return (
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 20, borderBottomWidth: 1 }}>
             <View>
@@ -98,8 +115,10 @@ const TransactionItem = ({ item }) => {
             </View>
 
             <View>
-                <Button title="Reorder" />
+                <Button title="Reorder" onPress={handleReorder}/>
             </View>
+
+            { showNotification &&<ToastNotification message={'Added to cart'} onClose={()=>{setShowNotification(false)}}/> }
         </View>
     )
 }

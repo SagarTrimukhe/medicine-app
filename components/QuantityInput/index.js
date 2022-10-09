@@ -28,18 +28,18 @@ const QuantityInput = ({ medicineDetails, showQuantityModal, setShowQuantityModa
                     style={commonStyles.input}
                     placeholder='Enter Quantity'
                     onChangeText={setQuantity}
+                    keyboardType='numeric'
                 />
 
                 <View style={{ flexDirection: "row" }}>
-                    <View style={{ margin: 5, width:100 }}>
+                    <View style={{ margin: 5, width: 100 }}>
                         <Button
-
                             title='Add'
                             onPress={addItemtoCart}
                         />
                     </View>
 
-                    <View style={{ margin: 5, width:100 }}>
+                    <View style={{ margin: 5, width: 100 }}>
                         <Button
                             title='Cancel'
                             onPress={() => { setShowQuantityModal(false) }}

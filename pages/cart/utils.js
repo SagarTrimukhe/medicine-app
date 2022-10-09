@@ -6,9 +6,9 @@ export const calculateCartTotal = (cartItems) => {
     return total
 }
 
-export const updateCartDataWithDate = (cartItems, orderId) => {
+export const updateCartDataWithDate = (cartItems, order_id) => {
     const current_date = new Date().toISOString()
     return cartItems.map((obj)=>{
-        return {...obj, ordered_date: current_date, orderId }
+        return {...obj, ordered_date: current_date, order_id }
     })
 }

@@ -3,20 +3,20 @@ import { commonStyles } from "../../styles/styles";
 import { useCartItems, useUserDetails } from "../../context/globalContext";
 import { calculateCartTotal, updateCartDataWithDate } from "./utils";
 import { getDatabase, ref, set } from 'firebase/database';
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
-const CartPage = ({navigation}) => {
+const CartPage = ({ navigation }) => {
     const [cartItems, setCartItems] = useCartItems()
     const [userDetails] = useUserDetails()
     const total = calculateCartTotal(cartItems)
 
 
     const submitOrder = () => {
-        const orderId = uuidv4()
-        const updatedCartData = updateCartDataWithDate(cartItems, orderId)
+        const order_id = uuidv4()
+        const updatedCartData = updateCartDataWithDate(cartItems, order_id)
         const db = getDatabase()
-        const reference = ref(db, 'orders/' + userDetails.id + '/' + orderId);
-        set(reference, updatedCartData).then(()=>{
+        const reference = ref(db, 'orders/' + userDetails.id + '/' + order_id);
+        set(reference, updatedCartData).then(() => {
             setCartItems([])
             navigation.navigate('Medicines')
         })

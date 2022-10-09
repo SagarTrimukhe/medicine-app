@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, FlatList, TextInput, Image, Button } from 'reac
 import { useState, useEffect } from 'react';
 import QuantityInput from '../../components/QuantityInput';
 import MedicinesFooter from '../../components/MedicinesFooter';
+import ToastNotification from '../../components/ToastNotification';
 import { commonStyles } from '../../styles/styles';
 
 import { getDatabase, ref, onValue } from 'firebase/database';
