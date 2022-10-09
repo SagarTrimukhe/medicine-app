@@ -2,17 +2,18 @@ import { StyleSheet } from "react-native"
 
 export const commonStyles = StyleSheet.create({  
     inputLabel: {
-        fontSize: 20
+        fontSize: 25
     },
     input: {
-        height: 40,
-        width: 250,
+        height: 45,
+        width: 260,
         marginBottom: 5,
         borderWidth: 1,
         padding: 10,
+        borderRadius:5
     },
     title: {
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: '600'
     },
     subTitle : {

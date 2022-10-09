@@ -82,12 +82,12 @@ const styles = StyleSheet.create({
     },
     appTitle: {
         fontWeight: 'bold',
-        fontSize: 40,
+        fontSize: 50,
         marginVertical: 50,
     },
     loginHeading: {
-        fontWeight: 'bold',
-        fontSize: 40,
+        fontWeight: '600',
+        fontSize: 45,
         marginVertical: 10
     },
     requiredText: {
