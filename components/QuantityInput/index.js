@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   View, TextInput, StyleSheet, Text, Button, Modal,
 } from 'react-native';
+import Toast from 'react-native-root-toast';
 import { commonStyles } from '../../styles/styles';
 import { useCartItems } from '../../context/globalContext';
 
@@ -11,6 +12,12 @@ function QuantityInput({ medicineDetails, showQuantityModal, setShowQuantityModa
 
   const addItemtoCart = () => {
     setCartItems([...cartItems, { ...medicineDetails, quantity }]);
+    Toast.show('Item aded to cart.', {
+      duration: Toast.durations.SHORT,
+      backgroundColor: '#AAFBA4',
+      textColor: 'black',
+      position: 0,
+    });
     setShowQuantityModal(false);
   };
 

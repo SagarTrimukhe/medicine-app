@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View, Text, Button, StyleSheet, FlatList, Pressable,
 } from 'react-native';
 import { getDatabase, ref, set } from 'firebase/database';
 import { v4 as uuidv4 } from 'uuid';
+import Toast from 'react-native-root-toast';
 import { commonStyles } from '../../styles/styles';
 import { useCartItems, useUserDetails } from '../../context/globalContext';
 import { calculateCartTotal, updateCartDataWithDate } from './utils';
-import ToastNotification from '../../components/ToastNotification';
 
 function CartPage({ navigation }) {
   const [cartItems, setCartItems] = useCartItems();
   const [userDetails] = useUserDetails();
-  const [showNotification, setShowNotification] = useState(false);
   const total = calculateCartTotal(cartItems);
 
   const submitOrder = () => {
@@ -21,12 +20,14 @@ function CartPage({ navigation }) {
     const db = getDatabase();
     const reference = ref(db, `orders/${userDetails.id}/${orderId}`);
     set(reference, updatedCartData).then(() => {
-      setShowNotification(true);
-      setTimeout(() => {
-        setShowNotification(false);
-        setCartItems([]);
-        navigation.navigate('Medicines');
-      }, 3000);
+      setCartItems([]);
+      Toast.show('Order Placed.', {
+        duration: Toast.durations.SHORT,
+        backgroundColor: '#AAFBA4',
+        textColor: 'black',
+        position: 0,
+      });
+      navigation.navigate('Medicines');
     });
   };
 
@@ -58,8 +59,6 @@ function CartPage({ navigation }) {
             onPress={() => { submitOrder(); }}
           />
         </View>
-
-        {showNotification && <ToastNotification message="Order Placed!" onClose={() => {}} />}
       </View>
     );
   }

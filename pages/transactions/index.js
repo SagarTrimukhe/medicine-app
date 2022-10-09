@@ -3,10 +3,10 @@ import {
   View, FlatList, Text, Button,
 } from 'react-native';
 import { getDatabase, ref, onValue } from 'firebase/database';
+import Toast from 'react-native-root-toast';
 import { commonStyles } from '../../styles/styles';
 import { useUserDetails, useCartItems } from '../../context/globalContext';
 import { getAllTransactions } from './utils';
-import ToastNotification from '../../components/ToastNotification';
 
 function TransactionsPage() {
   const [transactions, setTransactions] = useState([]);
@@ -43,7 +43,6 @@ function TransactionsPage() {
 
 function TransactionItem({ item }) {
   const [cartItems, setCartItems] = useCartItems();
-  const [showNotification, setShowNotification] = useState(false);
 
   const handleReorder = () => {
     const orderItem = { ...item };
@@ -51,10 +50,12 @@ function TransactionItem({ item }) {
     delete orderItem.ordere_date;
     delete orderItem.cost;
     setCartItems([...cartItems, orderItem]);
-    setShowNotification(true);
-    setTimeout(() => {
-      setShowNotification(false);
-    }, 3000);
+    Toast.show('Item aded to cart.', {
+      duration: Toast.durations.SHORT,
+      backgroundColor: '#AAFBA4',
+      textColor: 'black',
+      position: 0,
+    });
   };
 
   return (
@@ -84,8 +85,6 @@ function TransactionItem({ item }) {
       <View>
         <Button title="Reorder" onPress={handleReorder} />
       </View>
-
-      { showNotification && <ToastNotification message="Added to cart" onClose={() => { setShowNotification(false); }} /> }
     </View>
   );
 }
