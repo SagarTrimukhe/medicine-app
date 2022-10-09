@@ -37,11 +37,11 @@ function Dashboard({ navigation }) {
           <Text style={styles.tileText}>Order Medicines</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.tile} onPress={() => { navigation.navigate('Doctor Appointment'); }}>
+        <TouchableOpacity style={styles.tile} onPress={() => { navigation.navigate('DoctorAppointment'); }}>
           <Text style={styles.tileText}>Book Doctor Appointment</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.tile} onPress={() => { navigation.navigate('Lab Appointment'); }}>
+        <TouchableOpacity style={styles.tile} onPress={() => { navigation.navigate('LabAppointment'); }}>
           <Text style={styles.tileText}>Book Lab Appointment</Text>
         </TouchableOpacity>
       </View>
