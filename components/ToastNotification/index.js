@@ -7,6 +7,7 @@ const ToastNotification = ({
     onClose
 }) => {
     const [showModal, setShowModal] = useState(true)
+
     return (
         <Modal
             transparent={true}

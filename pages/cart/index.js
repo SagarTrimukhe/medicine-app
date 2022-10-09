@@ -4,12 +4,14 @@ import { useCartItems, useUserDetails } from "../../context/globalContext";
 import { calculateCartTotal, updateCartDataWithDate } from "./utils";
 import { getDatabase, ref, set } from 'firebase/database';
 import { v4 as uuidv4 } from 'uuid'
+import { useState } from "react";
+import ToastNotification  from '../../components/ToastNotification'
 
 const CartPage = ({ navigation }) => {
     const [cartItems, setCartItems] = useCartItems()
     const [userDetails] = useUserDetails()
+    const [showNotification, setShowNotification] = useState(false)
     const total = calculateCartTotal(cartItems)
-
 
     const submitOrder = () => {
         const order_id = uuidv4()
@@ -17,8 +19,12 @@ const CartPage = ({ navigation }) => {
         const db = getDatabase()
         const reference = ref(db, 'orders/' + userDetails.id + '/' + order_id);
         set(reference, updatedCartData).then(() => {
-            setCartItems([])
-            navigation.navigate('Medicines')
+            setShowNotification(true)
+            setTimeout(() => {
+                setShowNotification(false)
+                setCartItems([])
+                navigation.navigate('Medicines')
+            }, 3000);
         })
     }
 
@@ -47,6 +53,8 @@ const CartPage = ({ navigation }) => {
                         onPress={() => { submitOrder() }}
                     />
                 </View>
+
+                {showNotification &&  <ToastNotification message={'Order Placed!'} onClose={()=>{}} />}
             </View>
         )
     } else {
