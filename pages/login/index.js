@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
   },
   appDescription: {
     fontSize: 20,
+    fontStyle: 'italic'
   },
   loginHeading: {
     fontWeight: '600',
