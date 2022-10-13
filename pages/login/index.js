@@ -2,7 +2,6 @@ import {
   StyleSheet, Text, View, TextInput, Button,
 } from 'react-native';
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { getDatabase, ref, get } from 'firebase/database';
 import commonStyles from '../../styles/styles';
 import { useUserDetails } from '../../context/globalContext';
@@ -21,27 +20,22 @@ function LoginPage({ navigation }) {
       setErrorMessage('Enter Username and Password');
       return;
     }
-    const userRef = ref(db, `/users/${username}`);
+    const userRef = ref(db, '/users' + `/${username}`);
     const result = await get(userRef);
-
     if (JSON.stringify(result) === 'null') {
       setErrorMessage('Incorrect Username or Password');
       return;
     }
-    if (result.toJSON().password !== password) {
+    if (result.toJSON().password != password) {
       setErrorMessage('Incorrect Username or Password');
       return;
     }
     setUserDetails({ id: username });
     navigation.navigate('Dashboard');
   };
-
   return (
     <View style={styles.loginPageContainer}>
-      <View style={{ marginVertical: 50, alignItems: 'center' }}>
-        <Text style={styles.appTitle}>Medi-Stop</Text>
-        <Text style={styles.appDescription}>One stop for all your medical needs.</Text>
-      </View>
+      <Text style={styles.appTitle}>Medi-Stop</Text>
 
       <Text style={styles.loginHeading}>Login</Text>
 
@@ -80,12 +74,6 @@ function LoginPage({ navigation }) {
   );
 }
 
-LoginPage.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
 export default LoginPage;
 
 const styles = StyleSheet.create({
@@ -99,9 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
   },
   appDescription: {
-    fontSize: 25,
-    fontWeight: '200',
-    fontStyle: 'italic'
+    fontSize: 20,
   },
   loginHeading: {
     fontWeight: '600',
