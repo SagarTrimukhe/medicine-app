@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { initializeApp } from 'firebase/app';
 import LoginPage from './pages/login';
+import SignupPage from './pages/signup';
 import Dashboard from './pages/dashboard';
 import MedicinesPage from './pages/medicines';
 import CartPage from './pages/cart';
@@ -33,8 +34,9 @@ export default function App() {
     <RootSiblingParent>
       <GolbalContextProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login" screenOptions={{ headerStyle: { backgroundColor: '#4d94ff' } }}>
+          <Stack.Navigator initialRouteName="Signup" screenOptions={{ headerStyle: { backgroundColor: '#4d94ff' } }}>
             <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
+            <Stack.Screen name="Signup" component={SignupPage} options={{ headerShown: false }} />
             <Stack.Screen name="Dashboard" component={Dashboard} options={{ headerShown: true, headerBackVisible: false }} />
             <Stack.Screen name="Medicines" component={MedicinesPage} options={{ headerShown: true }} />
             <Stack.Screen name="DoctorAppointment" component={DoctorAppointmentPage} options={{ headerShown: true, title: 'Doctor Appointment' }} />

@@ -2,6 +2,7 @@ import React from 'react';
 import {
   StyleSheet, Text, View, TouchableOpacity, Pressable, Image,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import { useUserDetails } from '../../context/globalContext';
 import commonStyles from '../../styles/styles';
 import LogoutImg from '../../assets/logout.png';
@@ -11,14 +12,14 @@ import LabAppointmentIcon from '../../assets/medical_appointment.png';
 
 function Dashboard({ navigation }) {
   const [userDetails] = useUserDetails();
-  const username = userDetails.id || '';
+  const userfullname = userDetails.fullname|| '';
 
-  const formattedUsername = () => username?.charAt(0)?.toUpperCase() + username.slice(1);
+  const formattedUsername = () => `${userfullname?.charAt(0)?.toUpperCase()}${userfullname.slice(1)}`;
 
   return (
     <View style={styles.dashboardPageContainer}>
       <View style={styles.pageTitleContainer}>
-        <Text style={styles.pageTitle}>{`Welcome ${formattedUsername(username)}`}</Text>
+        <Text style={styles.pageTitle}>{`Welcome ${formattedUsername(userfullname)}`}</Text>
         <Pressable
           style={{
             flexDirection: 'row',
@@ -31,7 +32,7 @@ function Dashboard({ navigation }) {
           }}
           onPress={() => { navigation.navigate('Login'); }}
         >
-          <Image style={commonStyles.tinyIcon} source={require('../../assets/logout.png')} />
+          <Image style={commonStyles.tinyIcon} source={LogoutImg} />
           <Text style={{ fontWeight: '600' }}>Logout</Text>
         </Pressable>
       </View>
@@ -55,6 +56,12 @@ function Dashboard({ navigation }) {
     </View>
   );
 }
+
+Dashboard.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Dashboard;
 

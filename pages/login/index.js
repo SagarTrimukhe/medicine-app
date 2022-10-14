@@ -1,5 +1,5 @@
 import {
-  StyleSheet, Text, View, TextInput, Image,
+  StyleSheet, Text, View, TextInput, Image, Pressable,
 } from 'react-native';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -72,6 +72,13 @@ function LoginPage({ navigation }) {
 
       <View style={{ width: '50%' }}>
         <CustomButton title="Login" onPress={onLoginPress} />
+      </View>
+
+      <View style={{ flexDirection: 'row', margin: 30 }}>
+        <Text style={{ fontWeight: '500', marginHorizontal: 5 }}>Don't have an account?</Text>
+        <Pressable onPress={() => { navigation.navigate('Signup'); }}>
+          <Text style={{ fontWeight: '800', color: 'blue' }}>Sign up</Text>
+        </Pressable>
       </View>
     </View>
   );
