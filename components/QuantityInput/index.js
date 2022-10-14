@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import {
   View, TextInput, StyleSheet, Text, Button, Modal,
 } from 'react-native';
-import PropTypes from 'prop-types';
 import Toast from 'react-native-root-toast';
 import commonStyles from '../../styles/styles';
 import { useCartItems } from '../../context/globalContext';
 import CustomButton from '../CustomButton';
 
-function QuantityInput({ medicineDetails, showQuantityModal, closeQuantityModal }) {
+function QuantityInput({ medicineDetails, showQuantityModal, setShowQuantityModal }) {
   const [quantity, setQuantity] = useState(0);
   const [cartItems, setCartItems] = useCartItems();
 
@@ -20,7 +19,7 @@ function QuantityInput({ medicineDetails, showQuantityModal, closeQuantityModal 
       textColor: 'black',
       position: -60,
     });
-    closeQuantityModal();
+    setShowQuantityModal(false);
   };
 
   return (
@@ -54,15 +53,6 @@ function QuantityInput({ medicineDetails, showQuantityModal, closeQuantityModal 
     </Modal>
   );
 }
-
-QuantityInput.propTypes = {
-  medicineDetails: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  }).isRequired,
-  showQuantityModal: PropTypes.bool.isRequired,
-  closeQuantityModal: PropTypes.func.isRequired,
-};
 
 export default QuantityInput;
 

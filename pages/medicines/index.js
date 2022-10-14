@@ -1,7 +1,6 @@
 import {
   StyleSheet, Text, View, FlatList, TextInput, Image, Button,
 } from 'react-native';
-import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import QuantityInput from '../../components/QuantityInput';
@@ -38,7 +37,7 @@ function MedicinesPage({ navigation }) {
   return (
     <View style={styles.medicinePageContainer}>
       <View style={styles.searchBox}>
-        <Image style={commonStyles.tinyIcon} source={SearchIcon} />
+        <Image style={commonStyles.tinyIcon} source={require('../../assets/search.png')} />
         <TextInput
           style={styles.input}
           value={searchText}
@@ -56,10 +55,8 @@ function MedicinesPage({ navigation }) {
           renderItem={({ item }) => (
             <MedicineItem
               item={item}
-              handleAddToCart={() => {
-                setSelectedMedicineDetails(item);
-                setShowQuantityModal(true);
-              }}
+              setSelectedMedicineDetails={setSelectedMedicineDetails}
+              openQuantityModal={() => { setShowQuantityModal(true); }}
             />
           )}
           keyExtractor={(item) => item.id}
@@ -68,25 +65,20 @@ function MedicinesPage({ navigation }) {
 
       <MedicinesFooter navigation={navigation} />
 
-      {showQuantityModal && (
-      <QuantityInput
-        medicineDetails={selectedMedicineDetails}
-        showQuantityModal={showQuantityModal}
-        closeQuantityModal={() => { setShowQuantityModal(false); }}
-      />
-      )}
+      {showQuantityModal
+                && (
+                <QuantityInput
+                  medicineDetails={selectedMedicineDetails}
+                  showQuantityModal={showQuantityModal}
+                  setShowQuantityModal={setShowQuantityModal}
+                />
+                )}
 
     </View>
   );
 }
 
-MedicinesPage.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
-function MedicineItem({ item, handleAddToCart }) {
+function MedicineItem({ item, setSelectedMedicineDetails, openQuantityModal }) {
   return (
     <View style={styles.medicineItem}>
       <View style={{ width: '70%', paddingHorizontal: 5 }}>
@@ -101,16 +93,6 @@ function MedicineItem({ item, handleAddToCart }) {
     </View>
   );
 }
-
-MedicineItem.propTypes = {
-  item: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  }).isRequired,
-  handleAddToCart: PropTypes.func.isRequired,
-};
-
 export default MedicinesPage;
 
 const styles = StyleSheet.create({

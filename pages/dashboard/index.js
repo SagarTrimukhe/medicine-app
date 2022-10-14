@@ -2,7 +2,6 @@ import React from 'react';
 import {
   StyleSheet, Text, View, TouchableOpacity, Pressable, Image,
 } from 'react-native';
-import PropTypes from 'prop-types';
 import { useUserDetails } from '../../context/globalContext';
 import commonStyles from '../../styles/styles';
 import LogoutImg from '../../assets/logout.png';
@@ -14,17 +13,25 @@ function Dashboard({ navigation }) {
   const [userDetails] = useUserDetails();
   const username = userDetails.id || '';
 
-  const formattedUsername = () => `${username?.charAt(0)?.toUpperCase()}${username.slice(1)}`;
+  const formattedUsername = () => username?.charAt(0)?.toUpperCase() + username.slice(1);
 
   return (
     <View style={styles.dashboardPageContainer}>
       <View style={styles.pageTitleContainer}>
         <Text style={styles.pageTitle}>{`Welcome ${formattedUsername(username)}`}</Text>
         <Pressable
-          style={styles.logoutButtonContainer}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            borderWidth: 1,
+            padding: 10,
+            borderRadius: 5,
+            elevation: 1,
+            shadowColor: 'red',
+          }}
           onPress={() => { navigation.navigate('Login'); }}
         >
-          <Image style={commonStyles.tinyIcon} source={LogoutImg} />
+          <Image style={commonStyles.tinyIcon} source={require('../../assets/logout.png')} />
           <Text style={{ fontWeight: '600' }}>Logout</Text>
         </Pressable>
       </View>
@@ -49,12 +56,6 @@ function Dashboard({ navigation }) {
   );
 }
 
-Dashboard.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
 export default Dashboard;
 
 const styles = StyleSheet.create({
@@ -72,15 +73,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
     borderBottomWidth: 2,
-  },
-  logoutButtonContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 5,
-    elevation: 1,
-    shadowColor: 'red',
   },
   pageTitle: {
     fontWeight: '500',

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   View, FlatList, Text, Button,
 } from 'react-native';
-import PropTypes from 'prop-types';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import Toast from 'react-native-root-toast';
 import commonStyles from '../../styles/styles';
@@ -15,7 +14,7 @@ function TransactionsPage() {
 
   const [userDetails] = useUserDetails();
   const db = getDatabase();
-  const ordersRef = ref(db, `/orders/${userDetails.id}`);
+  const ordersRef = ref(db, '/orders' + `/${userDetails.id}`);
   useEffect(() => {
     onValue(ordersRef, (snapshot) => {
       const data = snapshot.val() || {};
@@ -68,14 +67,17 @@ function TransactionItem({ item }) {
       <View style={{ width: '70%' }}>
         <Text style={commonStyles.title}>{item.name}</Text>
         <Text style={commonStyles.subTitle}>
-          {`Ordered on ${item.ordered_date}`}
+          Ordered on
+          {item.ordered_date}
         </Text>
         <View style={{ flexDirection: 'row', marginVertical: 5 }}>
           <Text style={{ ...commonStyles.subTitle, marginRight: 5 }}>
-            {`Qty: ${item.quantity}`}
+            Qty:
+            {item.quantity}
           </Text>
           <Text style={{ ...commonStyles.subTitle, marginLeft: 5 }}>
-            {`Cost: $${item.cost}`}
+            Cost: $
+            {item.cost}
           </Text>
         </View>
 
@@ -87,15 +89,5 @@ function TransactionItem({ item }) {
     </View>
   );
 }
-
-TransactionItem.propTypes = {
-  item: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    order_id: PropTypes.string.isRequired,
-    ordered_date: PropTypes.string.isRequired,
-    quantity: PropTypes.number.isRequired,
-    cost: PropTypes.number.isRequired,
-  }).isRequired,
-};
 
 export default TransactionsPage;
