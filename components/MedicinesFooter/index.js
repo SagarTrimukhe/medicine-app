@@ -12,12 +12,12 @@ function MedicinesFooter({ navigation }) {
     <View style={styles.medicineFooter}>
       <Pressable style={styles.footerButton} onPress={() => { navigation.navigate('Transactions'); }}>
         <Image style={commonStyles.tinyIcon} source={TransactionsIcon} />
-        <Text>View Transactions</Text>
+        <Text style={{ fontWeight: '600' }}>Transactions</Text>
       </Pressable>
 
       <Pressable style={styles.footerButton} onPress={() => { navigation.navigate('Cart'); }}>
         <Image style={commonStyles.tinyIcon} source={CartIcon} />
-        <Text>View Cart</Text>
+        <Text style={{ fontWeight: '600' }}>Cart</Text>
       </Pressable>
     </View>
   );

@@ -6,6 +6,9 @@ import PropTypes from 'prop-types';
 import { useUserDetails } from '../../context/globalContext';
 import commonStyles from '../../styles/styles';
 import LogoutImg from '../../assets/logout.png';
+import MedicinesIcon from '../../assets/medicines.png';
+import DoctorAppointmentIcon from '../../assets/appointment.png';
+import LabAppointmentIcon from '../../assets/medical_appointment.png';
 
 function Dashboard({ navigation }) {
   const [userDetails] = useUserDetails();
@@ -28,14 +31,17 @@ function Dashboard({ navigation }) {
 
       <View style={styles.tilesContainer}>
         <TouchableOpacity style={styles.tile} onPress={() => { navigation.navigate('Medicines'); }}>
+          <Image source={MedicinesIcon} style={{ height: 70, width: 50 }} />
           <Text style={styles.tileText}>Order Medicines</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.tile} onPress={() => { navigation.navigate('DoctorAppointment'); }}>
+          <Image source={DoctorAppointmentIcon} style={commonStyles.mediumIcon} />
           <Text style={styles.tileText}>Book Doctor Appointment</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.tile} onPress={() => { navigation.navigate('LabAppointment'); }}>
+          <Image source={LabAppointmentIcon} style={commonStyles.mediumIcon} />
           <Text style={styles.tileText}>Book Lab Appointment</Text>
         </TouchableOpacity>
       </View>
@@ -79,21 +85,22 @@ const styles = StyleSheet.create({
   pageTitle: {
     fontWeight: '500',
     fontSize: 20,
+    fontStyle: 'italic',
   },
   tilesContainer: {
-    height: 500,
     justifyContent: 'space-around',
   },
   tile: {
-    height: 100,
-    width: 300,
+    height: 150,
+    width: 350,
     backgroundColor: 'white',
-    borderColor: 'grey',
-    borderWidth: 2,
     borderRadius: 10,
     alignItems: 'center',
     padding: 10,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    margin: 20,
+    elevation: 5,
   },
   tileText: {
     fontSize: 20,

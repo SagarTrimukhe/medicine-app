@@ -8,6 +8,7 @@ import Toast from 'react-native-root-toast';
 import commonStyles from '../../styles/styles';
 import { useUserDetails, useCartItems } from '../../context/globalContext';
 import { getAllTransactions } from './utils';
+import CustomButton from '../../components/CustomButton';
 
 function TransactionsPage() {
   const [transactions, setTransactions] = useState([]);
@@ -55,7 +56,7 @@ function TransactionItem({ item }) {
       duration: Toast.durations.SHORT,
       backgroundColor: '#AAFBA4',
       textColor: 'black',
-      position: 0,
+      position: -60,
     });
   };
 
@@ -64,7 +65,7 @@ function TransactionItem({ item }) {
       flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 20, borderBottomWidth: 1,
     }}
     >
-      <View>
+      <View style={{ width: '70%' }}>
         <Text style={commonStyles.title}>{item.name}</Text>
         <Text style={commonStyles.subTitle}>
           {`Ordered on ${item.ordered_date}`}
@@ -80,8 +81,8 @@ function TransactionItem({ item }) {
 
       </View>
 
-      <View>
-        <Button title="Reorder" onPress={handleReorder} />
+      <View width="30%">
+        <CustomButton title="Reorder" onPress={handleReorder} />
       </View>
     </View>
   );

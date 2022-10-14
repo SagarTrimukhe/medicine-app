@@ -8,6 +8,7 @@ import QuantityInput from '../../components/QuantityInput';
 import MedicinesFooter from '../../components/MedicinesFooter';
 import commonStyles from '../../styles/styles';
 import SearchIcon from '../../assets/search.png';
+import CustomButton from '../../components/CustomButton';
 
 function MedicinesPage({ navigation }) {
   const [medicinesData, setMedicinesData] = useState([]);
@@ -88,17 +89,14 @@ MedicinesPage.propTypes = {
 function MedicineItem({ item, handleAddToCart }) {
   return (
     <View style={styles.medicineItem}>
-      <View style={{ width: '70%' }}>
+      <View style={{ width: '70%', paddingHorizontal: 5 }}>
         <Text style={styles.title}>{item.name}</Text>
         <Text style={styles.description}>{item.description}</Text>
       </View>
 
-      <View style={{ alignItems: 'center', width: '30%' }}>
+      <View style={{ alignItems: 'center', width: '30%', paddingHorizontal: 5 }}>
         <Text style={{ fontWeight: '600', fontSize: 25, margin: 10 }}>{`$${item.price}`}</Text>
-        <Button
-          title="Add to cart"
-          onPress={handleAddToCart}
-        />
+        <CustomButton title="Add to cart" onPress={handleAddToCart} />
       </View>
     </View>
   );
@@ -144,14 +142,14 @@ const styles = StyleSheet.create({
   },
   medicineItem: {
     width: '100%',
-    borderColor: 'grey',
-    borderWidth: 2,
-    borderRadius: 10,
+    borderRadius: 5,
+    backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 10,
     marginVertical: 5,
+    elevation: 5,
   },
   title: {
     fontSize: 20,

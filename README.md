@@ -23,3 +23,6 @@ export MSG_SENDER_ID="your_message_sender_id"
 ```
 
 Additinal configuration related to firebase can be found in the App.js file.
+
+
+
