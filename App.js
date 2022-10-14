@@ -33,7 +33,7 @@ export default function App() {
     <RootSiblingParent>
       <GolbalContextProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
+          <Stack.Navigator initialRouteName="Login" screenOptions={{ headerStyle: { backgroundColor: '#4d94ff' } }}>
             <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
             <Stack.Screen name="Dashboard" component={Dashboard} options={{ headerShown: true, headerBackVisible: false }} />
             <Stack.Screen name="Medicines" component={MedicinesPage} options={{ headerShown: true }} />

@@ -5,6 +5,7 @@ import {
 import Toast from 'react-native-root-toast';
 import commonStyles from '../../styles/styles';
 import { useCartItems } from '../../context/globalContext';
+import CustomButton from '../CustomButton';
 
 function QuantityInput({ medicineDetails, showQuantityModal, setShowQuantityModal }) {
   const [quantity, setQuantity] = useState(0);
@@ -16,7 +17,7 @@ function QuantityInput({ medicineDetails, showQuantityModal, setShowQuantityModa
       duration: Toast.durations.SHORT,
       backgroundColor: '#AAFBA4',
       textColor: 'black',
-      position: 0,
+      position: -60,
     });
     setShowQuantityModal(false);
   };
@@ -41,18 +42,11 @@ function QuantityInput({ medicineDetails, showQuantityModal, setShowQuantityModa
 
         <View style={{ flexDirection: 'row' }}>
           <View style={{ margin: 5, width: 100 }}>
-            <Button
-              title="Add"
-              onPress={addItemtoCart}
-            />
+            <CustomButton title="Add" onPress={addItemtoCart} />
           </View>
 
           <View style={{ margin: 5, width: 100 }}>
-            <Button
-              title="Cancel"
-              onPress={() => { setShowQuantityModal(false); }}
-              color="red"
-            />
+            <CustomButton title="Cancel" onPress={closeQuantityModal} color="#ff4d4d" />
           </View>
         </View>
       </View>

@@ -24,4 +24,8 @@ export default StyleSheet.create({
     height: 20,
     width: 20,
   },
+  mediumIcon: {
+    height: 50,
+    width: 50,
+  },
 });

@@ -8,6 +8,7 @@ import Toast from 'react-native-root-toast';
 import commonStyles from '../../styles/styles';
 import { useCartItems, useUserDetails } from '../../context/globalContext';
 import { calculateCartTotal, updateCartDataWithDate } from './utils';
+import CustomButton from '../../components/CustomButton';
 
 function CartPage({ navigation }) {
   const [cartItems, setCartItems] = useCartItems();
@@ -54,10 +55,7 @@ function CartPage({ navigation }) {
         </View>
 
         <View style={{ margin: 10, width: '50%' }}>
-          <Button
-            title="Order"
-            onPress={() => { submitOrder(); }}
-          />
+          <CustomButton title="Order" onPress={() => { submitOrder(); }} />
         </View>
       </View>
     );
@@ -86,8 +84,7 @@ function CartItem({ item }) {
         <Text style={commonStyles.title}>{item.name}</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Text style={commonStyles.subTitle}>
-            Qty:
-            {item.quantity}
+            {`Qty: ${item.quantity}`}
           </Text>
           <Pressable style={{ marginHorizontal: 10 }} onPress={() => { handleRemove(item); }}>
             <Text style={{ color: 'red' }}>Remove</Text>
@@ -95,9 +92,8 @@ function CartItem({ item }) {
         </View>
       </View>
 
-      <Text>
-        $
-        {item.quantity * item.price}
+      <Text style={{ fontWeight: '600', fontSize: 20 }}>
+        {`$ ${item.quantity * item.price}`}
       </Text>
     </View>
   );
@@ -129,7 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     paddingHorizontal: 30,
-    paddingVertical: 15,
+    paddingVertical: 10,
     borderBottomWidth: 2,
   },
   tableHeader: {

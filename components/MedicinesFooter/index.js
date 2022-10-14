@@ -8,13 +8,13 @@ function MedicinesFooter({ navigation }) {
   return (
     <View style={styles.medicineFooter}>
       <Pressable style={styles.footerButton} onPress={() => { navigation.navigate('Transactions'); }}>
-        <Image style={commonStyles.tinyIcon} source={require('../../assets/transactions.png')} />
-        <Text>View Transactions</Text>
+        <Image style={commonStyles.tinyIcon} source={TransactionsIcon} />
+        <Text style={{ fontWeight: '600' }}>Transactions</Text>
       </Pressable>
 
       <Pressable style={styles.footerButton} onPress={() => { navigation.navigate('Cart'); }}>
-        <Image style={commonStyles.tinyIcon} source={require('../../assets/cart.png')} />
-        <Text>View Cart</Text>
+        <Image style={commonStyles.tinyIcon} source={CartIcon} />
+        <Text style={{ fontWeight: '600' }}>Cart</Text>
       </Pressable>
     </View>
   );
