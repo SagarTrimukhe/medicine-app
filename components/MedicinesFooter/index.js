@@ -2,7 +2,10 @@ import React from 'react';
 import {
   View, Pressable, Text, StyleSheet, Image,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import commonStyles from '../../styles/styles';
+import TransactionsIcon from '../../assets/transactions.png';
+import CartIcon from '../../assets/cart.png';
 
 function MedicinesFooter({ navigation }) {
   return (
@@ -19,6 +22,12 @@ function MedicinesFooter({ navigation }) {
     </View>
   );
 }
+
+MedicinesFooter.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default MedicinesFooter;
 
