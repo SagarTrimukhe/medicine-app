@@ -30,7 +30,8 @@ function SignupPage({ navigation }) {
     }
 
     if (password !== confirmPassword) {
-      setConfirmPassword('Passwords does not match');
+      setErrorMessage('Passwords does not match');
+      return;
     }
 
     const userRef = ref(db, `/users/${username}`);

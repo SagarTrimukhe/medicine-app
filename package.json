@@ -10,16 +10,18 @@
     "lint": "eslint pages/**/*.js"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.0",
     "expo": "~46.0.9",
     "expo-status-bar": "~1.4.0",
     "firebase": "9.1.0",
+    "prop-types": "15.8.1",
     "react": "18.0.0",
     "react-native": "0.69.6",
     "react-native-get-random-values": "^1.8.0",
+    "react-native-root-siblings": "^4.1.1",
     "react-native-root-toast": "^3.4.0",
-    "uuid": "^9.0.0",
-    "prop-types":"15.8.1"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

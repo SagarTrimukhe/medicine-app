@@ -24,7 +24,6 @@ const firebaseConfig = {
   messagingSenderId: process.env.MSG_SENDER_ID,
   appId: process.env.APP_ID,
 };
-
 initializeApp(firebaseConfig);
 
 const Stack = createNativeStackNavigator();
@@ -34,7 +33,7 @@ export default function App() {
     <RootSiblingParent>
       <GolbalContextProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Signup" screenOptions={{ headerStyle: { backgroundColor: '#4d94ff' } }}>
+          <Stack.Navigator initialRouteName="Login" screenOptions={{ headerStyle: { backgroundColor: '#4d94ff' } }}>
             <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
             <Stack.Screen name="Signup" component={SignupPage} options={{ headerShown: false }} />
             <Stack.Screen name="Dashboard" component={Dashboard} options={{ headerShown: true, headerBackVisible: false }} />
