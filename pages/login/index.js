@@ -33,7 +33,7 @@ function LoginPage({ navigation }) {
       setErrorMessage('Incorrect Username or Password');
       return;
     }
-    setUserDetails({ id: username });
+    setUserDetails({ id: username, fullname: result.toJSON().fullname });
     navigation.navigate('Dashboard');
   };
   return (

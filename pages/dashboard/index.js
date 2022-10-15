@@ -12,7 +12,7 @@ import LabAppointmentIcon from '../../assets/medical_appointment.png';
 
 function Dashboard({ navigation }) {
   const [userDetails] = useUserDetails();
-  const userfullname = userDetails.fullname|| '';
+  const userfullname = userDetails.fullname || '';
 
   const formattedUsername = () => `${userfullname?.charAt(0)?.toUpperCase()}${userfullname.slice(1)}`;
 
