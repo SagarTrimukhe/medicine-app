@@ -23,8 +23,8 @@ function MedicinesPage({ navigation }) {
   useEffect(() => {
     onValue(medicinesRef, (snapshot) => {
       const data = snapshot.val();
-      setMedicinesData(data.slice(1));
-      setFilteredMedicinesData(data.slice(1));
+      setMedicinesData(data);
+      setFilteredMedicinesData(data);
     });
   }, []);
 

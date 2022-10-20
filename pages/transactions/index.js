@@ -92,7 +92,7 @@ TransactionItem.propTypes = {
     name: PropTypes.string.isRequired,
     order_id: PropTypes.string.isRequired,
     ordered_date: PropTypes.string.isRequired,
-    quantity: PropTypes.number.isRequired,
+    quantity: PropTypes.string.isRequired,
     cost: PropTypes.number.isRequired,
   }).isRequired,
 };
