@@ -66,6 +66,18 @@ Orders information:
       ]
 ```
 
+## High level component diagram:   
+![image](https://user-images.githubusercontent.com/46806187/196982413-0478185a-be9d-4a8f-a168-7c3185fa94da.png)
+
+
+## Workflows:  
+![image](https://user-images.githubusercontent.com/46806187/196981967-be7d5aa6-5fa4-4ffd-aab5-d99ac37aad2a.png)
+
+![image](https://user-images.githubusercontent.com/46806187/196982141-06728050-9234-42a7-8d19-ec60657c9d32.png)
+
+![image](https://user-images.githubusercontent.com/46806187/196982200-408dd2ca-0de0-45de-82ba-3f4b35609e4c.png)
+
+
 ## Demo:
 https://user-images.githubusercontent.com/46806187/195995966-2475e636-2bbc-4e26-befd-d6ecdd8eb69b.mp4
 
