@@ -64,11 +64,11 @@ Orders information:
 
 
 ## Workflows:  
-![image](https://user-images.githubusercontent.com/46806187/196981967-be7d5aa6-5fa4-4ffd-aab5-d99ac37aad2a.png)
+<img src="https://user-images.githubusercontent.com/46806187/196981967-be7d5aa6-5fa4-4ffd-aab5-d99ac37aad2a.png" width="500px" />
 
-![image](https://user-images.githubusercontent.com/46806187/196982141-06728050-9234-42a7-8d19-ec60657c9d32.png)
+<img src="https://user-images.githubusercontent.com/46806187/196982141-06728050-9234-42a7-8d19-ec60657c9d32.png" width="500px" />
 
-![image](https://user-images.githubusercontent.com/46806187/196982200-408dd2ca-0de0-45de-82ba-3f4b35609e4c.png)
+<img src="https://user-images.githubusercontent.com/46806187/196982200-408dd2ca-0de0-45de-82ba-3f4b35609e4c.png" width="500px" />
 
 
 ## Demo:
