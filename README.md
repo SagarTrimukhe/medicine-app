@@ -1,9 +1,11 @@
-# medicine-app
+# Medi-stop
+### One stop for all your medical needs.
+
 Prerequistes:
-1. Node 
-2. Expo
-3. Firebase
-3. Android Emulator
+1. Node Runtime. 
+2. Expo.
+3. Firebase.
+3. Android Emulator.
 
 ## Steps to run the project locally.
 1. Clone the repo.
@@ -14,15 +16,6 @@ Prerequistes:
 
 More info about the expo: https://docs.expo.dev/
 
-## Firebase configuartion
-Export the following environement variables required for firebase connectivity.
-```
-export API_KEY="your_api_key"
-export APP_ID="yout_app_id"
-export MSG_SENDER_ID="your_message_sender_id"
-```
-
-Additinal configuration related to firebase can be found in the App.js file.
 
 ## Data model
 Medicines information:
