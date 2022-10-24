@@ -23,7 +23,7 @@ function LoginPage({ navigation }) {
       setErrorMessage('Enter Username and Password');
       return;
     }
-    const userRef = ref(db, `/users/${username}`);
+    const userRef = ref(db, `/users/${username.toLowerCase()}`);
     const result = await get(userRef);
     if (JSON.stringify(result) === 'null') {
       setErrorMessage('Incorrect Username or Password');
@@ -34,6 +34,8 @@ function LoginPage({ navigation }) {
       return;
     }
     setUserDetails({ id: username, fullname: result.toJSON().fullname });
+    setUsername('');
+    setPassword('');
     navigation.navigate('Dashboard');
   };
   return (

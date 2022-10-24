@@ -4,7 +4,7 @@ import {
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
-import QuantityInput from '../../components/QuantityInput';
+import QuantityInputModal from '../../components/QuantityInputModal';
 import MedicinesFooter from '../../components/MedicinesFooter';
 import commonStyles from '../../styles/styles';
 import SearchIcon from '../../assets/search.png';
@@ -69,7 +69,7 @@ function MedicinesPage({ navigation }) {
       <MedicinesFooter navigation={navigation} />
 
       {showQuantityModal && (
-      <QuantityInput
+      <QuantityInputModal
         medicineDetails={selectedMedicineDetails}
         showQuantityModal={showQuantityModal}
         closeQuantityModal={() => { setShowQuantityModal(false); }}
@@ -94,7 +94,18 @@ function MedicineItem({ item, handleAddToCart }) {
         <Text style={styles.description}>{item.description}</Text>
       </View>
 
-      <View style={{ alignItems: 'center', width: '30%', paddingHorizontal: 5 }}>
+      <View style={{
+        alignItems: 'center', width: '30%', paddingHorizontal: 5, justifyContent: 'space-between',
+      }}
+      >
+        {item.prescriptionRequired && (
+        <Text style={{
+          color: 'red', fontSize: 12, textAlign: 'center', fontWeight: '500',
+        }}
+        >
+          * This medicine requires doctor's priscription
+        </Text>
+        )}
         <Text style={{ fontWeight: '600', fontSize: 25, margin: 10 }}>{`$${item.price}`}</Text>
         <CustomButton title="Add to cart" onPress={handleAddToCart} />
       </View>
@@ -107,6 +118,7 @@ MedicineItem.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    prescriptionRequired: PropTypes.bool.isRequired,
   }).isRequired,
   handleAddToCart: PropTypes.func.isRequired,
 };
@@ -147,7 +159,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
     marginVertical: 5,
     elevation: 5,
   },

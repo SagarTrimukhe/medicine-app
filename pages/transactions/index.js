@@ -81,7 +81,7 @@ function TransactionItem({ item }) {
       </View>
 
       <View width="30%">
-        <CustomButton title="Reorder" onPress={handleReorder} />
+        <CustomButton title="Refill" onPress={handleReorder} />
       </View>
     </View>
   );
