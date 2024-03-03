@@ -1,7 +1,8 @@
 # Medi-stop
 ### One stop for all your medical needs.
+A demo of a cross-platform application that directly connects doctors and suppliers of healthcare products & services with customers. It can be by customers to Order/Refill Medicines, Consult a Doctor Online, Book Lab Tests Online, etc.
 
-Prerequistes:
+Prerequisites:
 1. Node Runtime. 
 2. Expo.
 3. Firebase.
